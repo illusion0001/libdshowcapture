@@ -18,12 +18,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_C_EXTENSIONS FALSE)
 set(CMAKE_CXX_EXTENSIONS FALSE)
 
-# Set symbols to be hidden by default for C and C++
-set(CMAKE_C_VISIBILITY_PRESET hidden)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN TRUE)
+# Set symbols to be default for C and C++
+# Useful for clang
+set(CMAKE_C_VISIBILITY_PRESET default)
+set(CMAKE_CXX_VISIBILITY_PRESET default)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN FALSE)
 
-add_library(libdshowcapture)
+if(BUILD_SHARED_LIBS)
+    add_library(libdshowcapture SHARED ${SOURCES})
+else()
+    add_library(libdshowcapture STATIC ${SOURCES})
+endif()
 
 target_sources(
   libdshowcapture
